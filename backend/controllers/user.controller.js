@@ -8,7 +8,7 @@ userCtrl.addUser = async (req, res) => {
   try {
     const { first_name, last_name, dni, sex, phone, status, email, password } =
       req.body;
-
+    console.log(req.body);
     const newUser = new User({
       first_name,
       last_name,
@@ -141,14 +141,14 @@ userCtrl.filterUsersBySexAndStatus = async (req, res) => {
       status: "Pending",
       sex: "Male",
     };
-    const usersFound = await User.find(body);
-    if (!usersFound) {
+    const users = await User.find(body);
+    if (!users) {
       return res.json({
         msg: "Users not found",
       });
     }
     return res.json({
-      usersFound,
+      users,
     });
   } catch (error) {
     return res.status(500).json({ msg: "Error in server" });

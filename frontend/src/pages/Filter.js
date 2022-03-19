@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { AddEditUserForm } from "../components/AddEditUserForm";
 import { CustomModal } from "../components/CustomModal";
 import { ModalDelete } from "../components/ModalDelete";
@@ -17,16 +16,16 @@ import {
 import { toast } from "react-toastify";
 import * as Icon from "react-bootstrap-icons";
 
-export const Home = () => {
+export const Filter = () => {
   const [showModal, setShowModal] = useState(false);
   const [titleModal, setTitleModal] = useState(null);
   const [contentModal, setContentModal] = useState(null);
   const [refetch, setRefetch] = useState(false);
 
-  const { loading, users, getUsers, deleteUser } = useUser();
+  const { loading, users, filterUsersMalePending, deleteUser } = useUser();
 
   useEffect(() => {
-    getUsers();
+    filterUsersMalePending();
   }, [refetch]);
   const openCloseModal = () => setShowModal((prev) => !prev);
   const onRefetch = () => setRefetch((prev) => !prev);
@@ -56,21 +55,15 @@ export const Home = () => {
     );
     openCloseModal();
   };
-
   return (
     <Container>
       <Row className="justify-content-md-center mb-4 mt-4">
         <Col md={{ span: 6, offset: 3 }}>
           <h1>
-            User list <Icon.Person />
+            User list filtered by sex and status <Icon.Person />
           </h1>
         </Col>
       </Row>
-      <Stack className="mt-2 mb-2" gap="3" direction="horizontal">
-        <Button onClick={() => handleModal()}>
-          <Icon.PersonPlus /> New user
-        </Button>
-      </Stack>
       {loading ? (
         <Spinner animation="border" variant="success" translate="center" />
       ) : users?.length < 1 ? (

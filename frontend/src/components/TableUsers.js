@@ -20,7 +20,7 @@ export const TableUsers = ({ users, handleModal, handleModalDelete }) => {
           </tr>
         </thead>
         <tbody>
-          {map(users, (user, index) => (
+          {map(users?.users, (user, index) => (
             <tr key={index}>
               <td>{user.first_name + " " + user?.last_name}</td>
               <td>{user.email}</td>
